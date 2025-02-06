@@ -1,0 +1,13 @@
+import React from 'react'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
+const MyApp = ({Component, pageProps}) => {
+    const [queryClient] = React.useState(() => new QueryClient())
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+        </QueryClientProvider>
+    )
+}
+
+export default MyApp
