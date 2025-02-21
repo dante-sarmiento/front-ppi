@@ -1,4 +1,4 @@
-import { getInstrument, marketData, MarketDataSearch } from '@/connections/instruments'
+import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent } from '@/connections/markets'
 import Layout from '@/layout'
 import React, { useState } from 'react'
 
@@ -35,14 +35,25 @@ const Bonos = () => {
     }
   }
 
+  const getMarketDataCurrent = async () => {
+    try {
+      const result = await MarketDataCurrent()
+      setData(result)
+    } catch (error) {
+      console.log("error", error)
+    }
+  }
 
   return (
     <Layout>
-      <div className='w-full flex justify-center items-center gap-4'>
+      <div className='w-full flex flex-col justify-start items-start gap-4'>
         <button onClick={getMarketData} className='bg-blue-500'>
           Obtener datos del mercado
         </button>
-        <button onClick={getData}>
+        <button onClick={getMarketDataCurrent} className='bg-green-500'>
+          Obtener datos ACTUALES del mercado
+        </button>
+        <button onClick={getData} className='bg-yellow-700'>
           obtener bonos
         </button>
         <button onClick={getMarketDataSearch} className='bg-red-700'>

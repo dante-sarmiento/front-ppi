@@ -4,6 +4,9 @@ export const SECTIONS = [
         route: "/dashboard"
     },
     {
+        label: "Gestion de usuarios",
+    },
+    {
         label: "Acciones",
         section: [
             {
@@ -36,5 +39,6 @@ export const SECTIONS = [
                 label: "Emisiones"
             }
         ]
-    }
+    },
+
 ]
