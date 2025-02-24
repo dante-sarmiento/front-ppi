@@ -1,12 +1,12 @@
 import Layout from '@/layout'
 import React from 'react'
 
-const PanelGeneral = () => {
+const FciExterior = () => {
   return (
     <Layout>
-        Panel general
+        FciExterior
     </Layout>
   )
 }
 
-export default PanelGeneral
+export default FciExterior

@@ -12,6 +12,7 @@ const headers = {
     'Authorization': `Bearer ${_token}`,
     'Content-Type': 'application/json',
 }
+console.log(":::::::::::::::cdddsc::_TOken", _token);
 
 // Recupera una lista de mercados disponibles.
 export const marketData = async () => {
@@ -83,6 +84,28 @@ export const MarketDataCurrent = async (
         query = ""
     }
     const response = await axios.get(`${baseUrl}/MarketData/Current${query}`, {
+        headers
+    });
+    return response
+}
+
+// Búsqueda de datos del mercado intradiario.
+export const MarketDataintraday  = async (
+    ticker = "AE38",
+    type = "BONOS",
+    Settlement = "INMEDIATA"
+) => {
+    console.log("headers", headers);
+    let query = []
+    if (ticker) query.push(`Ticker=${ticker}`)
+    if (type) query.push(`Type=${type}`)
+    if (Settlement) query.push(`Settlement=${Settlement}`)
+    if (query.length) {
+        query = `?${query.join("&")}`
+    } else {
+        query = ""
+    }
+    const response = await axios.get(`${baseUrl}/MarketData/Intraday${query}`, {
         headers
     });
     return response

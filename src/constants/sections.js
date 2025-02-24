@@ -1,44 +1,59 @@
 export const SECTIONS = [
     {
-        label: "Dashboard",
-        route: "/dashboard"
+        label: "Bonos",
+        route: "/bonos"
     },
     {
-        label: "Gestion de usuarios",
+        label: "Letras",
+        route: "/letras"
+    },
+    {
+        label: "NOBAC",
+        route: "/nobac"
+    },
+    {
+        label: "LEBAC",
+        route: "/lebac"
+    },
+    {
+        label: "ON",
+        route: "/on"
+    },
+    {
+        label: "FCI",
+        route: "/fci"
+    },
+    {
+        label: "Cauciones",
+        route: "/cauciones"
     },
     {
         label: "Acciones",
-        section: [
-            {
-                label: "Panel general",
-                route: "/acciones/panelGeneral"
-            },
-            {
-                label: "Cedears",
-                route: "/acciones/cedears"
-            }
-        ]
+        route: "/acciones"
     },
     {
-        label: "Bonos",
-        section: [
-            {
-                label: "Bonos",
-                route: "/bonos/bonos"
-            },
-            {
-                label: "Letras",
-                route: "/bonos/letras"
-            }
-        ]
+        label: "ETF",
+        route: "/etf"
     },
     {
-        label: "Emisiones primarias",
-        section: [
-            {
-                label: "Emisiones"
-            }
-        ]
+        label: "Cedears",
+        route: "/cedears"
+    },
+    {
+        label: "Opciones",
+        route: "/opciones"
+    },
+    {
+        label: "Futuros",
+        route: "/futuros"
+    },
+    {
+        label: "Acciones-USA",
+        route: "/accionesUsa"
+    },
+    {
+        label: "FCI-Exterior",
+        route: "/fciExterior"
     },
 
 ]
