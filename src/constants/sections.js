@@ -8,14 +8,6 @@ export const SECTIONS = [
         route: "/letras"
     },
     {
-        label: "NOBAC",
-        route: "/nobac"
-    },
-    {
-        label: "LEBAC",
-        route: "/lebac"
-    },
-    {
         label: "ON",
         route: "/on"
     },
@@ -38,14 +30,6 @@ export const SECTIONS = [
     {
         label: "Cedears",
         route: "/cedears"
-    },
-    {
-        label: "Opciones",
-        route: "/opciones"
-    },
-    {
-        label: "Futuros",
-        route: "/futuros"
     },
     {
         label: "Acciones-USA",

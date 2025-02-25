@@ -1,10 +1,6 @@
-import React, { useContext } from 'react'
-
-// Context
-import { Context } from '../../context/ContextProvider'
+import React from 'react'
 
 export default function Modal({ children }) {
-    const { theme } = useContext(Context)
 
     return (
         <>

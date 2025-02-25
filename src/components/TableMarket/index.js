@@ -3,7 +3,7 @@ import React from 'react'
 const TableMarket = ({ handleData, selectedData, data = [] }) => {
     return (
         <div className='w-full flex flex-col justify-center items-center'>
-            <div className='h-12 bg-gray-400 w-full flex justify-start items-center p-2'>
+            <div className='h-12 bg-gray-400 w-full flex justify-start items-center p-2 rounded-t-lg'>
                 <p className='text-black font-bold w-[25%] text-start'>
                     Nombre
                 </p>

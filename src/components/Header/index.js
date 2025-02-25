@@ -1,10 +1,14 @@
+
 import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent, MarketDataintraday } from '@/connections/markets'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 const Header = () => {
     const [data, setData] = useState(null)
     const name = "BONOS"
     const ticker = "AL30"
     const type = "CEDEARS"
+    const router = useRouter()
+    const section = router.pathname
 
     const getData = async () => {
         try {
@@ -51,10 +55,19 @@ const Header = () => {
         }
     }
 
+    const closeSession = () => {
+        localStorage.removeItem("tokenSession")
+        localStorage.removeItem("accessToken")
+        router.push("/login")
+    }
+
     return (
-        <div className="bg-gray-200 p-4 flex justify-end items-center">
-            <button onClick={getMarketData}>
-                Ver cuadro comparativo
+        <div className="bg-gray-200 p-4 flex justify-between items-center">
+            <p className='text-base font-bold text-black'>
+                {section?.slice(1).toLocaleUpperCase()}
+            </p>
+            <button onClick={closeSession}>
+                Cerrar sesión
             </button>
 
         </div>

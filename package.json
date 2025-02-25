@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.5",
+    "@mui/material": "^6.4.5",
     "@tanstack/react-query": "^4.36.1",
     "axios": "^1.7.9",
+    "import": "^0.0.6",
     "js-cookie": "^3.0.5",
     "next": "14.2.5",
     "node-fetch": "^3.3.2",
     "react": "18.3.1",
+    "react-date-range": "^2.0.1",
     "react-dom": "18.3.1",
     "recharts": "^2.15.1",
     "swr": "^2.3.2"

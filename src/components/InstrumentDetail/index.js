@@ -2,7 +2,7 @@ import { getPercenChangeIcon } from '@/helpers/getPercentChangeIcon';
 import formatNumber, { NumberFormat } from '@/helpers/numberFormat';
 import React from 'react'
 
-const BondDetail = ({ data = {}, closeModal, dataTable = "" }) => {
+const InstrumentDetail = ({ data = {}, closeModal, dataTable = "", getMarketDataBondsEstimate }) => {
     console.log("data", data);
     return (
         <div className='w-[70%] lg:w-[40%] h-auto bg-gray-200 rounded-lg flex flex-col justify-start items-start pb-4'>
@@ -17,6 +17,9 @@ const BondDetail = ({ data = {}, closeModal, dataTable = "" }) => {
 
             {data && (
                 <div className='w-full h-full flex flex-col justify-center items-center gap-2 px-8'>
+                    <button onClick={getMarketDataBondsEstimate && getMarketDataBondsEstimate}>
+                        Calcular retorno
+                    </button>
                     <div className='w-[70%] min-h-[150px] rounded-lg bg-blue-500 flex justify-between items-center'>
                         <div className='flex flex-col justify-center items-center w-1/2 gap-2'>
                             <p className='text-white font-semibold text-5xl'>
@@ -108,4 +111,4 @@ const BondDetail = ({ data = {}, closeModal, dataTable = "" }) => {
     )
 }
 
-export default BondDetail
+export default InstrumentDetail

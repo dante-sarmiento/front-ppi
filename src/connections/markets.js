@@ -3,19 +3,18 @@ import _Fetch from '../services/api'
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000";
 import axios from "axios";
 
-let _token = ""
 
-if (!_token) {
-    _token = getTokenUser()
-}
-const headers = {
-    'Authorization': `Bearer ${_token}`,
-    'Content-Type': 'application/json',
-}
-console.log(":::::::::::::::cdddsc::_TOken", _token);
+const getHeaders = () => {
+    const token = getTokenUser(); // Siempre obtiene el token más reciente
+    return {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+    };
+};
 
 // Recupera una lista de mercados disponibles.
 export const marketData = async () => {
+    const headers = getHeaders();
     const response = await axios.get(`${baseUrl}/Configuration/Markets`, {
         headers
     });
@@ -27,6 +26,7 @@ export const getInstrument = async (
     name = "",
     ticker = ""
 ) => {
+    const headers = getHeaders();
     let query = []
     if (name) query.push(`Name=${name}`)
     if (ticker) query.push(`Ticker=${ticker}`)
@@ -50,6 +50,7 @@ export const MarketDataSearch = async (
     DateTo = "2025-02-20T20:30:21.885611Z",
     Settlement = "INMEDIATA",
 ) => {
+    const headers = getHeaders();
     let query = []
     if (ticker) query.push(`Ticker=${ticker}`)
     if (type) query.push(`Type=${type}`)
@@ -73,6 +74,7 @@ export const MarketDataCurrent = async (
     type = "BONOS",
     Settlement = "INMEDIATA"
 ) => {
+    const headers = getHeaders();
     console.log("headers", headers);
     let query = []
     if (ticker) query.push(`Ticker=${ticker}`)
@@ -90,11 +92,12 @@ export const MarketDataCurrent = async (
 }
 
 // Búsqueda de datos del mercado intradiario.
-export const MarketDataintraday  = async (
+export const MarketDataintraday = async (
     ticker = "AE38",
     type = "BONOS",
     Settlement = "INMEDIATA"
 ) => {
+    const headers = getHeaders();
     console.log("headers", headers);
     let query = []
     if (ticker) query.push(`Ticker=${ticker}`)
@@ -106,6 +109,42 @@ export const MarketDataintraday  = async (
         query = ""
     }
     const response = await axios.get(`${baseUrl}/MarketData/Intraday${query}`, {
+        headers
+    });
+    return response
+}
+
+// Calcula el retorno de tus inversiones.
+export const MarketDataBondsEstimate = async (
+    ticker = "",
+    Date = "2025-02-25T00:00:00Z",
+    QuantityType = "PAPELES",
+    Quantity = 100,
+    AmountOfMoney = 65,
+    Price = 65,
+    ExchangeRate = 2,
+    EquityRate = 1,
+    ExchangeRateAmortization = 0.05,
+    RateAdjustmentAmortization = 0.02
+) => {
+    const headers = getHeaders();
+    let query = []
+    if (ticker) query.push(`Ticker=${ticker}`)
+    if (Date) query.push(`Date=${Date}`)
+    if (QuantityType) query.push(`QuantityType=${QuantityType}`)
+    if (Quantity) query.push(`Quantity=${Quantity}`)
+    if (AmountOfMoney) query.push(`AmountOfMoney=${AmountOfMoney}`)
+    if (Price) query.push(`Price=${Price}`)
+    if (ExchangeRate) query.push(`ExchangeRate=${ExchangeRate}`)
+    if (EquityRate) query.push(`EquityRate=${EquityRate}`)
+    if (ExchangeRateAmortization) query.push(`ExchangeRateAmortization=${ExchangeRateAmortization}`)
+    if (RateAdjustmentAmortization) query.push(`RateAdjustmentAmortization=${RateAdjustmentAmortization}`)
+    if (query.length) {
+        query = `?${query.join("&")}`
+    } else {
+        query = ""
+    }
+    const response = await axios.get(`${baseUrl}/MarketData/Bonds/Estimate${query}`, {
         headers
     });
     return response
