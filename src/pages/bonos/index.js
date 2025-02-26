@@ -19,7 +19,7 @@ const Bonos = () => {
     const [loader, setLoader] = useState(false)
     const [data, setData] = useState(null)
     const [openModal, setOpenModal] = useState(false)
-    const [selectedButton, setSelectedButton] = useState(buttons[1])
+    const [selectedButton, setSelectedButton] = useState(buttons[0])
     const handleData = (data) => {
         setSelectedData(data)
         getMarketDataCurrent(data)
@@ -79,8 +79,7 @@ const Bonos = () => {
                         data={BONDS} />
                 }
                 {selectedButton.value == "retorno" &&
-                    <Returns
-                        data={BONDS} />
+                    <Returns />
                 }
             </div>
         </Layout>

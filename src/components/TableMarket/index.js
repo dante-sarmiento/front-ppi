@@ -17,12 +17,12 @@ const TableMarket = ({ handleData, selectedData, data = [] }) => {
                     Mercado
                 </p>
             </div>
-            <div className='w-full h-full justify-center items-center'>
+            <div className='w-full h-full justify-center items-center bg-gray-200'>
                 {data.map((d, index) => {
                     return (
                         <div 
                           key={index} 
-                          className={`${selectedData?.ticker == d.ticker && "bg-gray-200"} w-full flex justify-start items-center p-2 cursor-pointer hover:bg-gray-200 `} 
+                          className={`${selectedData?.ticker == d.ticker && "bg-gray-300"} w-full flex justify-start items-center p-2 cursor-pointer hover:bg-gray-300 `} 
                           onClick={() => handleData(d)}>
                             <p className='text-start w-[25%]'>
                                 {d.ticker}

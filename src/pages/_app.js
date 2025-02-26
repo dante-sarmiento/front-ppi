@@ -17,8 +17,9 @@ const MyApp = ({ Component, pageProps }) => {
         const tokenStorage = localStorage.getItem('tokenSession')
         if (!tokenStorage && route != "/register") {
             router.push('/login');
-            setLoading(false)
-
+            setTimeout(() => {
+                setLoading(false)
+            }, 1000);
         } else {
             setLoading(false)
         }
@@ -28,6 +29,8 @@ const MyApp = ({ Component, pageProps }) => {
     if (loading) {
         return <Loader />
     }
+
+    console.log("loading", loading);
 
     return (
         <ContextProvider >
