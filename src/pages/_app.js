@@ -1,5 +1,5 @@
 import '@/styles/globals.css'; // Si está dentro de src/styles/
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ContextProvider } from '@/context/ContextProvider';
 import { useRouter } from 'next/router';
@@ -11,9 +11,9 @@ const MyApp = ({ Component, pageProps }) => {
     const router = useRouter()
     const ISSERVER = typeof window === 'undefined'
     const route = router.pathname
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
-
         const tokenStorage = localStorage.getItem('tokenSession')
         if (!tokenStorage && route != "/register") {
             router.push('/login');
@@ -25,15 +25,26 @@ const MyApp = ({ Component, pageProps }) => {
         }
     }, [ISSERVER, route])
 
+    useEffect(() => {
+      getUserData()
+    }, [])
+
+    const getUserData = () => {
+        
+    }
+    
+
 
     if (loading) {
         return <Loader />
     }
-
-    console.log("loading", loading);
+    
+    
 
     return (
-        <ContextProvider >
+        <ContextProvider 
+        user={user}
+        setUser={setUser}>
             <QueryClientProvider client={queryClient}>
                 <Component {...pageProps} />
             </QueryClientProvider>

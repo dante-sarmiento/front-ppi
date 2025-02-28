@@ -20,10 +20,12 @@ export const login = async ({ email, password }) => {
     return response;
 };
 
-export const register = async ({ email, password }) => {
+export const register = async ({ email, password, accountNumber, role }) => {
     const response = await axios.post(`${baseUrl}/register`, {
         email,
-        password
+        password,
+        accountNumber,
+        role
     })
     return response;
 };
@@ -32,3 +34,12 @@ export const loginApiPPI = async () => {
     const response = await axios.post(`${baseUrl}/Account/loginApi`)
     return response;
 };
+
+export const getUser = async ({ userId }) => {
+    const headers = getHeaders();
+    const response = await axios.get(`${baseUrl}/user`, {
+        id: userId
+    },
+        headers)
+    return response
+}

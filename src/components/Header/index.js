@@ -1,7 +1,8 @@
 
 import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent, MarketDataintraday } from '@/connections/markets'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from '@/context/ContextProvider'
 const Header = () => {
     const [data, setData] = useState(null)
     const name = "BONOS"
@@ -9,6 +10,22 @@ const Header = () => {
     const type = "CEDEARS"
     const router = useRouter()
     const section = router.pathname
+    const context = useContext(Context)
+    if (!context) console.log("Error de contexto")
+    const { user } = context
+    const [selectedSection, setSelectedSection] = useState("")
+
+    useEffect(() => {
+        if (section && section != "accionesUsa" && section != "fciExterior" && section != "/gestionDeClientes") {
+            setSelectedSection(section.slice(1))
+        } else if (section == "accionesUsa") {
+            setSelectedSection("acciones-usa")
+        } else if (section == "fciExterior") {
+            setSelectedSection("fci-exterior")
+        } else if (section == "/gestionDeClientes") {
+            setSelectedSection("Gestión de clientes")
+        }
+    }, [section])
 
     const getData = async () => {
         try {
@@ -63,8 +80,9 @@ const Header = () => {
 
     return (
         <div className="bg-gray-200 p-4 flex justify-between items-center">
+
             <p className='text-base font-bold text-black'>
-                {section?.slice(1).toLocaleUpperCase()}
+                {selectedSection}
             </p>
             <button onClick={closeSession}>
                 Cerrar sesión
