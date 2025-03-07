@@ -75,6 +75,7 @@ const Header = () => {
     const closeSession = () => {
         localStorage.removeItem("tokenSession")
         localStorage.removeItem("accessToken")
+        localStorage.removeItem("user")
         router.push("/login")
     }
 

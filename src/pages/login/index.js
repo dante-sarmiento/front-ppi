@@ -27,7 +27,6 @@ const Login = () => {
             try {
                 const data = await login({ email, password })
                 const apiToken = await loginApiPPI()
-                console.log("data", data);
                 if (
                     data?.status == 200 
                     && apiToken
@@ -35,9 +34,10 @@ const Login = () => {
                      {
                     const { user, token } = data.data
                     setUser({ ...user, token })
-                    setTokenSession(apiToken?.data?.accessToken)
+                    setTokenSession(apiToken?.data)
+                    console.log('accessToken', apiToken)
                     localStorage.setItem('user', data?.data?.user?._id);
-                    localStorage.setItem('accessToken', apiToken?.data?.accessToken);
+                    localStorage.setItem('accessToken', apiToken?.data);
                     localStorage.setItem('tokenSession', token)
                     router.push('/dashboard')
                 }

@@ -20,7 +20,6 @@ const GestionDeClientes = () => {
   const [accountNumber, setAccountNumber] = useState("")
   const [password, setPassword] = useState("")
   const [missingField, setMissingField] = useState("")
-  const [role, setRole] = useState(false)
   const router = useRouter()
   const [modalInfo, setModalInfo] = useState({
     type: 0,
@@ -38,7 +37,7 @@ const GestionDeClientes = () => {
       return
     }
     try {
-      const roleSend = role ? "ADMINISTRADOR": "CLIENTE"
+      const roleSend = "CLIENTE"
       const data = await register({ email, password, accountNumber, roleSend })
       if (data?.status == 200) {
         setModalInfo({
@@ -116,13 +115,6 @@ const GestionDeClientes = () => {
                 onChange={(e) => setAccountNumber(e.target.value)}
                 helperText={missingField == "accountNumber" && "Campo requerido."}
               />
-            </div>
-            <div className='flex justify-start items-center gap-2'>
-              <label htmlFor="">Rol de administrador:</label>
-              <input type="checkbox"
-                onChange={() => setRole(!role)}
-                value={role}
-                className='w-[15px] h-[15px]' />
             </div>
 
             <button className='text-xl w-[250px] py-2 bg-green-500 rounded-lg text-white' onClick={handleRegister}>

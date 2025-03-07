@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ContextProvider } from '@/context/ContextProvider';
 import { useRouter } from 'next/router';
 import Loader from '@/components/Loader';
+import { getUser } from '@/connections/user';
 
 const MyApp = ({ Component, pageProps }) => {
     const [queryClient] = React.useState(() => new QueryClient())
@@ -26,11 +27,18 @@ const MyApp = ({ Component, pageProps }) => {
     }, [ISSERVER, route])
 
     useEffect(() => {
-      getUserData()
+        const userId = localStorage.getItem("user")
+        console.log("userId ls", userId);
+        if(userId && !user) {
+            getUserData(userId)
+            return <Loader />
+        }
     }, [])
 
-    const getUserData = () => {
-        
+    const getUserData = async (userId) => {
+        const responseUserId = await getUser(userId)
+        setUser(responseUserId)
+        console.log("userId", responseUserId)
     }
     
 

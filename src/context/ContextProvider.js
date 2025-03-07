@@ -4,10 +4,10 @@ import React, { createContext, useEffect, useState } from 'react'
 
 export const Context = createContext()
 
-export const ContextProvider = ({ children, token }) => {
+export const ContextProvider = ({ children, user, setUser }) => {
   const [tokenSession, setTokenSession] = useState()
-  const [user, setUser] = useState(null)
-  const userId =  localStorage.getItem("user");
+  // const [user, setUser] = useState(null)
+  // const userId =  localStorage.getItem("user");
 
   return (
     <Context.Provider
@@ -15,8 +15,7 @@ export const ContextProvider = ({ children, token }) => {
         tokenSession,
         setTokenSession,
         user,
-        setUser,
-        token
+        setUser
       }}
     >
       {children}
