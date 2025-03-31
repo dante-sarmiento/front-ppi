@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.stylesHeader {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.stylesData {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.styleseHaderInv {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}

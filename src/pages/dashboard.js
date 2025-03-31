@@ -1,4 +1,4 @@
-import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent, MarketDataintraday } from '@/connections/markets'
+import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent, MarketDataintraday, balancesAndPositions } from '@/connections/markets'
 import React, { useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -55,13 +55,21 @@ const Dashboard = () => {
     }
   }
 
+  const getBalances = async () => {
+    try {
+      const result = await balancesAndPositions()
+      console.log("result", result);
+    } catch (error) {
+      console.log("error al obtener balances y posiciones", error);
+    }
+  }
+
   // const minPrice = Math.min(...data?.map((d) => d.price));
   // const maxPrice = Math.max(...data?.map((d) => d.price));
 
-  console.log("data", data)
   return (
     <Layout>
-      <div className='w-full flex gap-4'>
+      <div className='w-full grid grid-cols-3 gap-4'>
         <button onClick={getMarketData}>
           Obtener datos del mercado
         </button>
@@ -76,6 +84,9 @@ const Dashboard = () => {
         </button>
         <button onClick={getIntradayMarket}>
           Obtener intradiarios
+        </button>
+         <button onClick={getBalances}>
+          Obtener balances
         </button>
 
       </div>

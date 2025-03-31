@@ -21,6 +21,23 @@ export const marketData = async () => {
     return response
 }
 
+export const balancesAndPositions = async (
+    accountNumber = "229616"
+) => {
+    const headers = getHeaders();
+    let query = []
+    if (accountNumber) query.push(`accountNumber=${accountNumber}`)
+    if (query.length) {
+        query = `?${query.join("&")}`
+    } else {
+        query = ""
+    }
+    const response = await axios.get(`${baseUrl}/getBalances${query}`, {
+        headers
+    });
+    return response
+}
+
 // Busque artículos que coincidan con un filtro determinado
 export const getInstrument = async (
     name = "",

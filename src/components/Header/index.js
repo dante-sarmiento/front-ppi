@@ -16,13 +16,15 @@ const Header = () => {
     const [selectedSection, setSelectedSection] = useState("")
 
     useEffect(() => {
-        if (section && section != "accionesUsa" && section != "fciExterior" && section != "/gestionDeClientes") {
+        if (section && section != "accionesUsa" && section != "fciExterior" && section != "/gestionDeClientes" && section != "/gestionDeClientes/[id]") {
             setSelectedSection(section.slice(1))
         } else if (section == "accionesUsa") {
             setSelectedSection("acciones-usa")
         } else if (section == "fciExterior") {
             setSelectedSection("fci-exterior")
         } else if (section == "/gestionDeClientes") {
+            setSelectedSection("Gestión de clientes")
+        }else if (section == "/gestionDeClientes/[id]") {
             setSelectedSection("Gestión de clientes")
         }
     }, [section])
@@ -74,7 +76,7 @@ const Header = () => {
 
     const closeSession = () => {
         localStorage.removeItem("tokenSession")
-        localStorage.removeItem("accessToken")
+        localStorage.removeItem("ppiToken")
         localStorage.removeItem("user")
         router.push("/login")
     }

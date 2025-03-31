@@ -26,19 +26,18 @@ const Login = () => {
             setLoader(true)
             try {
                 const data = await login({ email, password })
-                const apiToken = await loginApiPPI()
+                const ppiToken = await loginApiPPI()
                 if (
                     data?.status == 200 
-                    && apiToken
+                    && ppiToken
                 )
                      {
-                    const { user, token } = data.data
+                        const { user, token} = data.data
                     setUser({ ...user, token })
-                    setTokenSession(apiToken?.data)
-                    console.log('accessToken', apiToken)
+                    setTokenSession(data?.data?.token)
                     localStorage.setItem('user', data?.data?.user?._id);
-                    localStorage.setItem('accessToken', apiToken?.data);
-                    localStorage.setItem('tokenSession', token)
+                    localStorage.setItem('ppiToken', ppiToken?.data.accessToken);
+                    localStorage.setItem('tokenSession', data?.data?.token)
                     router.push('/dashboard')
                 }
             } catch (error) {
@@ -49,6 +48,7 @@ const Login = () => {
             console.log("faltan campos requeridos");
             setLoader(false)
         }
+        router.push('/dashboard')
     }
 
     return (

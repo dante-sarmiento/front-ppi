@@ -11,8 +11,6 @@ const Sidebar = () => {
     if (!context) console.log("Error de contexto")
     const { user } = context
 
-    console.log("user", user);
-
     const handleSection = (data) => {
         setSelectedSection(selectedSection == data.label ? "" : data.label)
         if (data.route) {
@@ -30,48 +28,54 @@ const Sidebar = () => {
             setSelectedSection("acciones-usa")
         } else if (route == "fciExterior") {
             setSelectedSection("fci-exterior")
-        } else if(route == "/gestionDeClientes") {
+        } else if (route == "/gestionDeClientes") {
             setSelectedSection("Gestion de clientes")
         }
     }, [route])
-    
+
     return (
         <div className='w-64 bg-gray-900 text-white p-4 h-full'>
-            <div className='h-16 w-full flex justify-start items-center'>
-                <button className='text-3xl font-bold' onClick={() => router.push("/dashboard")}>PPI market</button>
+            <div className='h-16 w-full flex justify-start items-center overflow-hidden rounded-lg'>
+                    <Image
+                        src='/img/amautaLogo.png'
+                        width={160}
+                        height={100}
+                        alt='logo'
+                        className="w-full h-full bg-contain"
+                    />
             </div>
             <div className='mt-4 flex flex-col gap-4'>
                 {user?.role == USER.ROLE[1] ?
-                <>
-                <div className={`${selectedSection.toLocaleLowerCase() == "gestiondeclientes" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
-                    <div
-                        className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
-                        onClick={() => router.push('/gestionDeClientes')}
-                    >
-                        <p>Gestión de clientes</p>
-                    </div>
-                </div>
-                {SECTIONS.map((section, index) => {
-                    return (
-                        <div key={index} className={`${selectedSection.toLocaleLowerCase() == section.label.toLocaleLowerCase() ? "bg-gray-800" : ""} w-full flex  items-end rounded-md`}>
+                    <>
+                        <div className={`${selectedSection.toLocaleLowerCase() == "gestiondeclientes" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
                             <div
                                 className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
-                                onClick={() => handleSection(section)}
+                                onClick={() => router.push('/gestionDeClientes')}
                             >
-                                <li>{section.label}</li>
+                                <p>Gestión de clientes</p>
                             </div>
                         </div>
-                    );
-                })}
-                </> :
-                <div className={`${selectedSection.toLocaleLowerCase() == "dashboard" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
-                    <div
-                        className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
-                        onClick={() => router.push('/dashboard')}
-                    >
-                        <p>Dashboard</p>
+                        {SECTIONS.map((section, index) => {
+                            return (
+                                <div key={index} className={`${selectedSection.toLocaleLowerCase() == section.label.toLocaleLowerCase() ? "bg-gray-800" : ""} w-full flex  items-end rounded-md`}>
+                                    <div
+                                        className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
+                                        onClick={() => handleSection(section)}
+                                    >
+                                        <li>{section.label}</li>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </> :
+                    <div className={`${selectedSection.toLocaleLowerCase() == "dashboard" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
+                        <div
+                            className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
+                            onClick={() => router.push('/dashboard')}
+                        >
+                            <p>Dashboard</p>
+                        </div>
                     </div>
-                </div>
                 }
             </div>
         </div>

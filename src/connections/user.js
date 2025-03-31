@@ -6,11 +6,21 @@ import axios from "axios";
 
 const getHeaders = () => {
     const token = getTokenUser(); // Siempre obtiene el token más reciente
-    console.log("token", token);
     return {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
     };
+};
+
+export const getUser = async (userId) => {
+    const headers = getHeaders();
+
+    const response = await axios.get(`${baseUrl}/user`, {
+        params: { id: userId },
+        headers
+    });
+
+    return response;
 };
 
 export const login = async ({ email, password }) => {
@@ -35,13 +45,3 @@ export const loginApiPPI = async () => {
     const response = await axios.post(`${baseUrl}/Account/loginApi`)
     return response;
 };
-
-export const getUser = async ({ userId }) => {
-    const headers = getHeaders();
-    console.log("headers", headers);
-    const response = await axios.get(`${baseUrl}/user`, {
-        id: userId
-    },
-        headers)
-    return response
-}

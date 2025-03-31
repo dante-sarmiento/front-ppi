@@ -12,7 +12,6 @@ const MyApp = ({ Component, pageProps }) => {
     const router = useRouter()
     const ISSERVER = typeof window === 'undefined'
     const route = router.pathname
-    const [user, setUser] = useState(null)
 
     useEffect(() => {
         const tokenStorage = localStorage.getItem('tokenSession')
@@ -26,20 +25,20 @@ const MyApp = ({ Component, pageProps }) => {
         }
     }, [ISSERVER, route])
 
-    useEffect(() => {
-        const userId = localStorage.getItem("user")
-        console.log("userId ls", userId);
-        if(userId && !user) {
-            getUserData(userId)
-            return <Loader />
-        }
-    }, [])
+    // useEffect(() => {
+    //     const userId = localStorage.getItem("user")
+    //     console.log("userId ls", userId);
+    //     if(userId && !user) {
+    //         getUserData(userId)
+    //         return <Loader />
+    //     }
+    // }, [])
 
-    const getUserData = async (userId) => {
-        const responseUserId = await getUser(userId)
-        setUser(responseUserId)
-        console.log("userId", responseUserId)
-    }
+    // const getUserData = async (userId) => {
+    //     const responseUserId = await getUser(userId)
+    //     setUser(responseUserId)
+    //     console.log("userId", responseUserId)
+    // }
     
 
 
@@ -50,9 +49,7 @@ const MyApp = ({ Component, pageProps }) => {
     
 
     return (
-        <ContextProvider 
-        user={user}
-        setUser={setUser}>
+        <ContextProvider>
             <QueryClientProvider client={queryClient}>
                 <Component {...pageProps} />
             </QueryClientProvider>
