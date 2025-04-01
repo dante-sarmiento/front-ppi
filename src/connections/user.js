@@ -31,12 +31,10 @@ export const login = async ({ email, password }) => {
     return response;
 };
 
-export const register = async ({ email, password, accountNumber, role }) => {
+export const register = async ({ dataSend }) => {
+    console.log("data", dataSend);
     const response = await axios.post(`${baseUrl}/register`, {
-        email,
-        password,
-        accountNumber,
-        role
+        dataSend
     })
     return response;
 };

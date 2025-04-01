@@ -49,16 +49,16 @@ const InvestmentsTable = ({ data }) => {
                                 {d.description}
                             </p>
                             <p className='w-[7%] styleseData text-center'>
-                                {d.nominales}
+                                {d.nominals}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
                                 {d.price}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
-                                {d.variacion}
+                                {d.variation}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
-                                {d.rendimiento}
+                                {d.performance}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
                                 {d.currentValue}
@@ -67,13 +67,13 @@ const InvestmentsTable = ({ data }) => {
                                 {d.initialValue}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
-                                {d.averegaePriceBuy}
+                                {d.averagePurchasePrice}
                             </p>
                             <p className='w-[9%] styleseData text-center'>
                                 {d.percentage}
                             </p>
                             <p className='w-[8%] styleseData text-center'>
-                                {d.avergaeDays}
+                                {d.daysOfHolding}
                             </p>
                         </div>
                     )

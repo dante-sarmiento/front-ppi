@@ -26,6 +26,7 @@ const GestionDeClientes = () => {
     active: false
   })
 
+  const role = "CLIENTE"
   const handleRegister = async () => {
     if (!password) {
       setMissingField("password")
@@ -36,8 +37,7 @@ const GestionDeClientes = () => {
       return
     }
     try {
-      const roleSend = "CLIENTE"
-      const data = await register({ email, password, accountNumber, roleSend })
+      const data = await register({ email, password, accountNumber, role })
       if (data?.status == 200) {
         setModalInfo({
           type: 1,
@@ -49,12 +49,13 @@ const GestionDeClientes = () => {
       console.log("Register error", error)
       setModalInfo({
         type: 0,
-        message: error?.response?.data || "Ha ocurrido un error",
+        message: error?.response?.data?.error|| "Ha ocurrido un error",
         active: true
       })
     }
     setLoader(false)
   }
+  
   const closeModal = () => {
     setModalInfo({
       type: 0,
