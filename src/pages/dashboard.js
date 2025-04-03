@@ -1,14 +1,49 @@
 import { getInstrument, marketData, MarketDataSearch, MarketDataCurrent, MarketDataintraday, balancesAndPositions } from '@/connections/markets'
-import React, { useState } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from '@/context/ContextProvider';
 import Layout from '@/layout';
+import Loader from '@/components/Loader';
+import ClientInvestments from '@/components/ClientsManagement/ClientInvestments';
+import ModalInfo from '@/components/ModalInfo';
+import Modal from '@/components/Modal';
+import { getAccounts } from '@/connections/accounts';
 
 const Dashboard = () => {
   const [data, setData] = useState(null)
+  const [loader, setLoader] = useState(false)
+  const [dataInvestments, setDataInvestments] = useState([])
+  const [modalInfo, setModalInfo] = useState({
+    type: 0,
+    message: "",
+    active: false
+  })
+  const context = useContext(Context)
+  if (!context) console.log("Error de contexto")
+  const { user } = context
   const name = "BONOS"
   const ticker = "AE38"
   const type = "CEDEARS"
+
+  const getDataInvestments = async () => {
+    setLoader(true)
+    try {
+      const data = await getAccounts(user._id)
+      setDataInvestments(data)
+    } catch (error) {
+      console.log("error get investments", error)
+      setModalInfo({
+        type: 0,
+        message: error?.response?.data?.error || "Ha ocurrido un error",
+        active: true
+      })
+    }
+    setLoader(false)
+  }
+
+  useEffect(() => {
+    getDataInvestments()
+  }, [])
+
 
   const getData = async () => {
     try {
@@ -69,35 +104,25 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className='w-full grid grid-cols-3 gap-4'>
-        <button onClick={getMarketData}>
-          Obtener datos del mercado
-        </button>
-        <button onClick={getMarketDataCurrent}>
-          Obtener datos ACTUALES del mercado
-        </button>
-        <button onClick={getData}>
-          obtener instrumentos especificos
-        </button>
-        <button onClick={getMarketDataSearch}>
-          obtener HISTORICO
-        </button>
-        <button onClick={getIntradayMarket}>
-          Obtener intradiarios
-        </button>
-         <button onClick={getBalances}>
-          Obtener balances
-        </button>
-
-      </div>
-      {/* <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data}>
-        <XAxis dataKey="date" tickFormatter={(value) => value.slice(11, 16)} />
-        <YAxis domain={[minPrice * 0.98, maxPrice * 1.02]} />
-        <Tooltip />
-        <Line type="monotone" dataKey="price" stroke="#8884d8" />
-      </LineChart>
-    </ResponsiveContainer> */}
+      {loader && (
+        <Loader />
+      )}
+      {modalInfo.active && (
+        <Modal>
+          <ModalInfo
+            type={modalInfo.type}
+            message={modalInfo.message}
+            closeModal={closeModal} />
+        </Modal>
+      )}
+      {user.role == "CLIENTE" && (
+        <div className='w-full flex flex-col justify-center items-center gap-4'>
+          <>
+            <ClientInvestments
+              data={dataInvestments} />
+          </>
+        </div>
+      )}
     </Layout>
   )
 }

@@ -26,17 +26,17 @@ const Login = () => {
             setLoader(true)
             try {
                 const data = await login({ email, password })
-                const ppiToken = await loginApiPPI()
+                // const ppiToken = await loginApiPPI()
                 if (
                     data?.status == 200 
-                    && ppiToken
+                    // && ppiToken
                 )
                      {
                         const { user, token} = data.data
                     setUser({ ...user, token })
                     setTokenSession(data?.data?.token)
                     localStorage.setItem('user', data?.data?.user?._id);
-                    localStorage.setItem('ppiToken', ppiToken?.data.accessToken);
+                    // localStorage.setItem('ppiToken', ppiToken?.data.accessToken);
                     localStorage.setItem('tokenSession', data?.data?.token)
                     router.push('/dashboard')
                 }

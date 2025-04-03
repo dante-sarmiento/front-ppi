@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import GeneralSelect from '@/components/GeneralSelect'
 import { INSTRUMENTS } from '@/constants/instruments'
 import InvestmentsTable from '../InvestmentsTable'
-import { BONDS } from '@/constants/bonds'
 
-const ClientInvestments = () => {
+const ClientInvestments = ({ data }) => {
     const [instrumentSelected, setInstrumentselected] = useState(INSTRUMENTS[0])
+
     return (
         <div className='w-full flex flex-col gap-4 rounded-md h-auto p-6 bg-gray-200'>
             <div className='w-full flex justify-between items-center'>
@@ -22,8 +22,8 @@ const ClientInvestments = () => {
                         setInstrumentSelected={(value) => setInstrumentselected(value)} />
                 </div>
             </div>
-            <InvestmentsTable 
-              data={BONDS}/>
+            <InvestmentsTable
+                data={data} />
         </div>
     )
 }

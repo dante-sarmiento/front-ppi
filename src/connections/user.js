@@ -23,6 +23,17 @@ export const getUser = async (userId) => {
     return response;
 };
 
+export const getUsers = async (role) => {
+    const headers = getHeaders();
+
+    const response = await axios.get(`${baseUrl}/users`, {
+         params: role ? { role } : {},
+        headers
+    });
+
+    return response.data;
+};
+
 export const login = async ({ email, password }) => {
     const response = await axios.post(`${baseUrl}/login`, {
         email,
@@ -31,10 +42,10 @@ export const login = async ({ email, password }) => {
     return response;
 };
 
-export const register = async ({ dataSend }) => {
-    console.log("data", dataSend);
+export const register = async ({ newUserData }) => {
+    console.log("dataSend", newUserData);
     const response = await axios.post(`${baseUrl}/register`, {
-        dataSend
+        newUserData
     })
     return response;
 };

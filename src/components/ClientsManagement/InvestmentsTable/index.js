@@ -1,3 +1,4 @@
+import PaginatorTables from '@/components/Tables/PaginatorTables'
 import React from 'react'
 
 const InvestmentsTable = ({ data }) => {
@@ -38,47 +39,55 @@ const InvestmentsTable = ({ data }) => {
                     Días promedio de tenecia
                 </p>
             </div>
-            <div className='w-full flex flex-col jutstify-start items-center px-2'>
-                {data.map((d, index) => {
-                    return (
-                        <div key={index} className='w-full flex jutstify-start items-center h-[50px] overflow-hidden'>
-                            <p className='w-[6%] styleseData'>
-                                {d.ticker}
-                            </p>
-                            <p className='w-[16%] styleseData'>
-                                {d.description}
-                            </p>
-                            <p className='w-[7%] styleseData text-center'>
-                                {d.nominals}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.price}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.variation}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.performance}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.currentValue}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.initialValue}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.averagePurchasePrice}
-                            </p>
-                            <p className='w-[9%] styleseData text-center'>
-                                {d.percentage}
-                            </p>
-                            <p className='w-[8%] styleseData text-center'>
-                                {d.daysOfHolding}
-                            </p>
-                        </div>
-                    )
-                })}
-            </div>
+            {data && data.length > 0 ?
+                <div className='w-full flex flex-col jutstify-start items-center px-2'>
+                    {data.map((d, index) => {
+                        return (
+                            <div key={index} className='w-full flex jutstify-start items-center h-[50px] overflow-hidden'>
+                                <p className='w-[6%] styleseData'>
+                                    {d.ticker}
+                                </p>
+                                <p className='w-[16%] styleseData'>
+                                    {d.description}
+                                </p>
+                                <p className='w-[7%] styleseData text-center'>
+                                    {d.nominals}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.price}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.variation}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.performance}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.currentValue}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.initialValue}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.averagePurchasePrice}
+                                </p>
+                                <p className='w-[9%] styleseData text-center'>
+                                    {d.percentage}
+                                </p>
+                                <p className='w-[8%] styleseData text-center'>
+                                    {d.holdingPercentageDays}
+                                </p>
+                            </div>
+                        )
+                    })}
+                </div> :
+                <div className='w-full flex justify-center items-center min-h-[220px]'>
+                    Noy hay datos para mostrar.
+                </div>
+            }
+            <PaginatorTables
+                data={data}
+            />
         </div>
     )
 }

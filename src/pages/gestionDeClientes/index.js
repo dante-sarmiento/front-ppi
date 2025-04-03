@@ -49,13 +49,13 @@ const GestionDeClientes = () => {
       console.log("Register error", error)
       setModalInfo({
         type: 0,
-        message: error?.response?.data?.error|| "Ha ocurrido un error",
+        message: error?.response?.data?.error || "Ha ocurrido un error",
         active: true
       })
     }
     setLoader(false)
   }
-  
+
   const closeModal = () => {
     setModalInfo({
       type: 0,
@@ -79,24 +79,25 @@ const GestionDeClientes = () => {
       )}
       <div className='w-full flex flex-col justify-center items-center gap-4'>
 
-      <ButtonGroup
-        data={buttons}
-        selectedButton={selectedButton}
-        setSelectedButton={setSelectedButton} />
-      <div className='w-full h-full flex justify-center items-start'>
-        {selectedButton.value == "general" && (
-          <ClientsTable />
-        )}
+        <ButtonGroup
+          data={buttons}
+          selectedButton={selectedButton}
+          setSelectedButton={setSelectedButton} />
+        <div className='w-full h-full flex justify-center items-start'>
+          {selectedButton.value == "general" && (
+            <ClientsTable
+              setLoader={setLoader} />
+          )}
 
-        {selectedButton.value == "agregarCliente" && (
-          <NewClientForm
-            setPassword={setPassword}
-            setEmail={setEmail}
-            setAccountNumber={setAccountNumber}
-            handleRegister={handleRegister}
-            missingField={missingField} />
-        )}
-      </div>
+          {selectedButton.value == "agregarCliente" && (
+            <NewClientForm
+              setPassword={setPassword}
+              setEmail={setEmail}
+              setAccountNumber={setAccountNumber}
+              handleRegister={handleRegister}
+              missingField={missingField} />
+          )}
+        </div>
       </div>
     </Layout>
 

@@ -68,14 +68,24 @@ const Sidebar = () => {
                             );
                         })}
                     </> :
+                    <>
                     <div className={`${selectedSection.toLocaleLowerCase() == "dashboard" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
                         <div
                             className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
                             onClick={() => router.push('/dashboard')}
                         >
-                            <p>Dashboard</p>
+                            <p>Inicio</p>
                         </div>
                     </div>
+                    <div className={`${selectedSection.toLocaleLowerCase() == "perfil" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
+                        <div
+                            className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
+                            onClick={() => router.push('/perfil')}
+                        >
+                            <p>Mi perfil</p>
+                        </div>
+                    </div>
+                    </>
                 }
             </div>
         </div>
