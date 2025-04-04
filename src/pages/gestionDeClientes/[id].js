@@ -23,6 +23,7 @@ const Client = () => {
         message: "",
         active: false
     })
+    const [editingAccount, setEditingAccount] = useState(null)
     const [accountNewUser, setAccountNewUser] = useState({
         ticker: "",
         description: "",
@@ -144,7 +145,9 @@ const Client = () => {
                         <ClientInvestments
                             data={dataInvestments}
                             accountNewUser={accountNewUser}
-                            setAccountNewUser={setAccountNewUser} />
+                            setAccountNewUser={setAccountNewUser}
+                            setEditingAccount={setEditingAccount}
+                            editingAccount={editingAccount} />
                         <AddInstrument
                             accountNewUser={accountNewUser}
                             setAccountNewUser={setAccountNewUser}

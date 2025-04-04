@@ -102,6 +102,14 @@ const Dashboard = () => {
   // const minPrice = Math.min(...data?.map((d) => d.price));
   // const maxPrice = Math.max(...data?.map((d) => d.price));
 
+  const closeModal = () => {
+    setModalInfo({
+      type: 0,
+      message: "",
+      active: false
+    })
+  }
+
   return (
     <Layout>
       {loader && (
@@ -115,7 +123,7 @@ const Dashboard = () => {
             closeModal={closeModal} />
         </Modal>
       )}
-      {user.role == "CLIENTE" && (
+      {user?.role == "CLIENTE" && (
         <div className='w-full flex flex-col justify-center items-center gap-4'>
           <>
             <ClientInvestments
