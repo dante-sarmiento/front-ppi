@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useContext } from 'react'
 import { Context } from '@/context/ContextProvider';
 
-const InvestmentsTable = ({ data, setEditingAccount, editingAccount }) => {
+const InvestmentsTable = ({ data, setEditingAccount, editingAccount, setAccountIdDelete }) => {
     const context = useContext(Context)
     if (!context) console.log("Error de contexto")
     const { user } = context
@@ -60,7 +60,7 @@ const InvestmentsTable = ({ data, setEditingAccount, editingAccount }) => {
                                 <p className='w-[6%] styleseData'>
                                     {d.ticker}
                                 </p>
-                                <p className='w-[10%] styleseData'>
+                                <p className='w-[10%] styleseData truncate'>
                                     {d.description}
                                 </p>
                                 <input
@@ -119,7 +119,7 @@ const InvestmentsTable = ({ data, setEditingAccount, editingAccount }) => {
                                 />
                                 {user?.role == "ADMINISTRADOR" && (
                                     <div className='w-[6%] flex justify-center items-center gap-3'>
-                                        <button className='p-1 rounded-md bg-red-500'>
+                                        <button className='p-1 rounded-md bg-red-500' onClick={() => setAccountIdDelete(d)}>
 
                                             < Image
                                                 src='/img/deleteIcon.svg'

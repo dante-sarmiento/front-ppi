@@ -7,29 +7,29 @@ const GeneralSelect = ({ data, label, instrumentSelected, setInstrumentSelected 
             disablePortal
             options={data}
             fullWidth
-            getOptionLabel={(option) => option?.label || option} // Para mostrar el label en el input
+            getOptionLabel={(option) => option?.label ? option.label : option?.ticker ? option.ticker : option} // Para mostrar el label en el input
             value={instrumentSelected} // Guardamos el objeto completo
-            onChange={(_, newValue) => setInstrumentSelected(newValue?.label || newValue)} // Guardamos el objeto completo
+            onChange={(_, newValue) => setInstrumentSelected(newValue?.label ? newValue.label : newValue)} // Guardamos el objeto completo
             renderInput={(params) => (
                 <TextField
                     {...params}
                     label={label}
-                    sx={{
-                        '& .MuiOutlinedInput-root': {
-                            '& fieldset': { borderColor: 'black' },
-                            '&:hover fieldset': { borderColor: 'black' },
-                            '&.Mui-focused fieldset': { borderColor: 'blue' },
-                        },
-                        '& .MuiInputLabel-root': { color: 'black' },
-                        '& .MuiInputLabel-root.Mui-focused': { color: 'blue' },
-                        '& .MuiOutlinedInput-input': { color: 'black' },
-                    }}
+                    // sx={{
+                    //     '& .MuiOutlinedInput-root': {
+                    //         '& fieldset': { borderColor: 'black' },
+                    //         '&:hover fieldset': { borderColor: 'black' },
+                    //         '&.Mui-focused fieldset': { borderColor: 'blue' },
+                    //     },
+                    //     '& .MuiInputLabel-root': { color: 'black' },
+                    //     '& .MuiInputLabel-root.Mui-focused': { color: 'blue' },
+                    //     '& .MuiOutlinedInput-input': { color: 'black' },
+                    // }}
                 />
             )}
             renderOption={(props, option) => (
                 <li {...props} className="bg-white hover:bg-gray-200 cursor-pointer">
                     <div className="flex items-center justify-start p-2">
-                        <p className="text-black text-[16px]">{option.label}</p>
+                        <p className="text-black text-[16px]">{option?.label || option.ticker}</p>
                     </div>
                 </li>
             )}

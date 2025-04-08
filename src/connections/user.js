@@ -20,14 +20,14 @@ export const getUser = async (userId) => {
         headers
     });
 
-    return response;
+    return response.data;
 };
 
 export const getUsers = async (role) => {
     const headers = getHeaders();
 
     const response = await axios.get(`${baseUrl}/users`, {
-         params: role ? { role } : {},
+        params: role ? { role } : {},
         headers
     });
 
@@ -52,5 +52,17 @@ export const register = async ({ newUserData }) => {
 
 export const loginApiPPI = async () => {
     const response = await axios.post(`${baseUrl}/Account/loginApi`)
+    return response;
+};
+
+export const deleteUser = async (userId ) => {
+    console.log("userID", userId);
+    const headers = getHeaders();
+
+    const response = await axios.delete(`${baseUrl}/userDelete`, {
+        data: { id: userId },
+        headers,
+    });
+
     return response;
 };

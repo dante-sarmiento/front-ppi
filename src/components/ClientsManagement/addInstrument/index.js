@@ -1,10 +1,13 @@
 import React from 'react'
 import InvestmentsTable from '../InvestmentsTable';
 import { TextField } from '@mui/material'
+import GeneralSelect from '@/components/GeneralSelect';
+import { INSTRUMENTS } from '@/constants/instruments';
+import { BONDS } from '@/constants/bonds';
 
 
 const AddInstrument = ({ missingField = "", setAccountNewUser, accountNewUser, handleInstrument, newUserData }) => {
-
+    const onlyD = BONDS.filter(bond => bond.ticker.endsWith('D'));
 
     return (
         <div className='w-full  min-h-[300px] bg-gray-200 rounded-lg flex flex-col justify-start items-start p-8 gap-4'>
@@ -12,28 +15,25 @@ const AddInstrument = ({ missingField = "", setAccountNewUser, accountNewUser, h
                 Agregar instrumentos
             </p>
             <div className='w-full grid grid-cols-5 gap-4'>
-                <TextField
-                    required
-                    id="outlined-required-1"
+                <GeneralSelect
+                    label="Tipo de instrumento"
+                    data={INSTRUMENTS}
+                    instrumentSelected={accountNewUser.type}
+                    setInstrumentSelected={(value) => setAccountNewUser({ ...accountNewUser, type: value })}
+                />
+                <GeneralSelect
                     label="Ticker"
-                    fullWidth
-                    value={accountNewUser.ticker} // ✅ Vinculación del input al estado
-                    onChange={(e) => setAccountNewUser({ ...accountNewUser, ticker: e.target.value })}
-                    helperText={missingField == "ticker" && "Campo requerido."}
+                    data={onlyD}
+                    instrumentSelected={accountNewUser.ticker || ""}
+                    setInstrumentSelected={(value) => setAccountNewUser({ ...accountNewUser, ticker: value?.ticker, description: value?.description })}
                 />
                 <TextField
                     id="outlined-required-2"
                     label="Description"
                     fullWidth
+                    disabled
                     value={accountNewUser.description} // ✅ Vinculación del input al estado
                     onChange={(e) => setAccountNewUser({ ...accountNewUser, description: e.target.value })}
-                />
-                <TextField
-                    id="outlined-required-2"
-                    label="Type"
-                    fullWidth
-                    value={accountNewUser.type} // ✅ Vinculación del input al estado
-                    onChange={(e) => setAccountNewUser({ ...accountNewUser, type: e.target.value })}
                 />
                 <TextField
                     required
@@ -69,7 +69,7 @@ const AddInstrument = ({ missingField = "", setAccountNewUser, accountNewUser, h
                     onChange={(e) => setAccountNewUser({ ...accountNewUser, performance: e.target.value })}
                     helperText={missingField == "performance" && "Campo requerido."}
                 />
-                 <TextField
+                <TextField
                     id="outlined-required-7"
                     label="Variación"
                     fullWidth
@@ -117,9 +117,9 @@ const AddInstrument = ({ missingField = "", setAccountNewUser, accountNewUser, h
                     onChange={(e) => setAccountNewUser({ ...accountNewUser, holdingPercentageDays: e.target.value })}
                     helperText={missingField == "holdingPercentageDays" && "Campo requerido."}
                 />
-            <button className='text-xl w-[50px] h-[50px] bg-green-500 rounded-lg text-white' onClick={handleInstrument}>
-                +
-            </button>
+                <button className='text-xl w-[50px] h-[50px] bg-green-500 rounded-lg text-white' onClick={handleInstrument}>
+                    +
+                </button>
             </div>
 
 

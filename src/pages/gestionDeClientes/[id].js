@@ -4,10 +4,11 @@ import Layout from '@/layout'
 import ClientDataWidget from '@/components/ClientsManagement/ClientDataWidget'
 import ClientInvestments from '@/components/ClientsManagement/ClientInvestments'
 import AddInstrument from '@/components/ClientsManagement/addInstrument'
-import { addAccount, getAccounts } from '@/connections/accounts'
+import { addAccount, deleteAccount, getAccounts } from '@/connections/accounts'
 import Loader from '@/components/Loader'
 import Modal from '@/components/Modal'
 import ModalInfo from '@/components/ModalInfo'
+import { getUser } from '@/connections/user'
 
 const buttons = [
     { label: "Inversiones", value: "inversiones" },
@@ -18,6 +19,8 @@ const Client = () => {
     const [selectedButton, setSelectedButton] = useState(buttons[0])
     const [loader, setLoader] = useState(false)
     const [dataInvestments, setDataInvestments] = useState([])
+    const [userData, setUserData] = useState(null)
+    const [accountIdDelete, setAccountIdDelete] = useState(null)
     const [modalInfo, setModalInfo] = useState({
         type: 0,
         message: "",
@@ -72,7 +75,28 @@ const Client = () => {
         setAccountNewUser({ ...accountNewUser, userId: userId })
     }, [])
 
-    console.log("account new user", accountNewUser)
+    const getUserById = async () => {
+        setLoader(true)
+        try {
+            const userId = getUserIdFromUrl()
+            const dataUser = await getUser(userId)
+            setUserData(dataUser?.user)
+        } catch (error) {
+            setModalInfo({
+                type: 0,
+                message: error?.response?.data?.error || "Ha ocurrido un error",
+                active: true
+            })
+        }
+        setLoader(false)
+    }
+
+    useEffect(() => {
+        if (selectedButton.value == "clientData" && !userData) {
+            getUserById()
+        }
+    }, [selectedButton])
+
 
     const handleInstrument = async () => {
         try {
@@ -96,7 +120,7 @@ const Client = () => {
                     averagePurchasePrice: "",
                     holdingPercentageDays: "",
                     percentage: "",
-                    userId: "",
+                    userId: getUserIdFromUrl(),
                     type: ""
                 })
             }
@@ -118,6 +142,36 @@ const Client = () => {
         })
     }
 
+    const handleDeleteAccount = async () => {
+        setLoader(true)
+        try {
+            const deletAcc = await deleteAccount(accountIdDelete)
+            setAccountIdDelete(null)
+            setLoader(false)
+            setModalInfo({
+                type: 1,
+                message: "Ceunta eliminada con éxito",
+                active: true
+            })
+            getDataInvestments()
+        } catch (error) {
+            console.log("deleteAccount error", error)
+            setModalInfo({
+                type: 0,
+                message: error?.response?.data?.error || "Ha ocurrido un error",
+                active: true
+            })
+            setAccountIdDelete(null)
+            setLoader(false)
+        }
+        setLoader(false)
+    }
+
+    useEffect(() => {
+
+    }, [])
+
+
 
     return (
         <Layout>
@@ -132,13 +186,31 @@ const Client = () => {
                         closeModal={closeModal} />
                 </Modal>
             )}
+            {accountIdDelete && (
+                <Modal>
+                    <div className='w-[400px] h-[200px] rounded-md bg-gray-500 flex flex-col justify-center items-center gap-4'>
+                        <p className='text-xl text-white font-semibold'>
+                            Eliminar cuenta
+                        </p>
+                        <div className='w-full flex justify-center items-center gap-4'>
+                            <button className='bg-red-500 rounded-md px-2 py-1 text-white' onClick={() => setAccountIdDelete(null)}>
+                                Cancelar
+                            </button>
+                            <button className='bg-blue-500 rounded-md px-2 py-1 text-white' onClick={handleDeleteAccount}>
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </Modal>
+            )}
             <div className='w-full flex flex-col justify-center items-center gap-4'>
                 <ButtonGroup
                     data={buttons}
                     selectedButton={selectedButton}
                     setSelectedButton={setSelectedButton} />
                 {selectedButton.value == "clientData" && (
-                    <ClientDataWidget />
+                    <ClientDataWidget
+                        userData={userData} />
                 )}
                 {selectedButton.value == "inversiones" && (
                     <>
@@ -147,7 +219,8 @@ const Client = () => {
                             accountNewUser={accountNewUser}
                             setAccountNewUser={setAccountNewUser}
                             setEditingAccount={setEditingAccount}
-                            editingAccount={editingAccount} />
+                            editingAccount={editingAccount}
+                            setAccountIdDelete={setAccountIdDelete} />
                         <AddInstrument
                             accountNewUser={accountNewUser}
                             setAccountNewUser={setAccountNewUser}

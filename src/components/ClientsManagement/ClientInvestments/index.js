@@ -3,7 +3,7 @@ import GeneralSelect from '@/components/GeneralSelect'
 import { INSTRUMENTS } from '@/constants/instruments'
 import InvestmentsTable from '../InvestmentsTable'
 
-const ClientInvestments = ({ data, setEditingAccount, editingAccount}) => {
+const ClientInvestments = ({ data, setEditingAccount, editingAccount, setAccountIdDelete}) => {
     const [instrumentSelected, setInstrumentselected] = useState(INSTRUMENTS[0])
 
     return (
@@ -25,7 +25,8 @@ const ClientInvestments = ({ data, setEditingAccount, editingAccount}) => {
             <InvestmentsTable
                 data={data}
                 setEditingAccount={setEditingAccount}
-                editingAccount={editingAccount} />
+                editingAccount={editingAccount}
+                setAccountIdDelete={setAccountIdDelete} />
         </div>
     )
 }

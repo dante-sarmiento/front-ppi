@@ -36,3 +36,15 @@ export const getAccounts = async (userId, type) => {
 
     return response.data;
 };
+
+export const deleteAccount = async (accountId ) => {
+    console.log("deletAccount", accountId);
+    const headers = getHeaders();
+
+    const response = await axios.delete(`${baseUrl}/deleteAccount`, {
+        data: { id: accountId },
+        headers,
+    });
+
+    return response;
+};

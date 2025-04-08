@@ -9,6 +9,7 @@ import LayoutSession from '@/layout/layoutSession'
 import Loader from '@/components/Loader'
 import { login, loginApiPPI } from '@/connections/user';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const Login = () => {
     const [loader, setLoader] = useState(false)
@@ -28,17 +29,20 @@ const Login = () => {
                 const data = await login({ email, password })
                 // const ppiToken = await loginApiPPI()
                 if (
-                    data?.status == 200 
+                    data?.status == 200
                     // && ppiToken
-                )
-                     {
-                        const { user, token} = data.data
+                ) {
+                    const { user, token } = data.data
                     setUser({ ...user, token })
                     setTokenSession(data?.data?.token)
                     localStorage.setItem('user', data?.data?.user?._id);
                     // localStorage.setItem('ppiToken', ppiToken?.data.accessToken);
                     localStorage.setItem('tokenSession', data?.data?.token)
-                    router.push('/dashboard')
+                    if (data?.data?.user?.role == "ADMINISTRADOR") {
+                        router.push('/gestionDeClientes')
+                    } else {
+                        router.push('/dashboard')
+                    }
                 }
             } catch (error) {
                 console.log("Login error", error)
@@ -48,7 +52,7 @@ const Login = () => {
             console.log("faltan campos requeridos");
             setLoader(false)
         }
-        router.push('/dashboard')
+        router.push('/gestionDeClientes')
     }
 
     return (
@@ -56,14 +60,18 @@ const Login = () => {
             {loader && (
                 <Loader />
             )}
-            <div className='w-[30%] h-[450px] bg-white rounded-lg flex flex-col justify-center items-center p-8 gap-4'>
-                <p className='text-5xl font-bold text-center'>
-                    Bienvenido!
-                </p>
-                <p className='text-xl font-normal text-black text-center'>
-                    Ingresá tu email y contraseña para iniciar sesión.
-                </p>
-                <div className='w-full flex flex-col justify-center items-center gap-4'>
+            <div className='w-[30%] h-[500px] bg-white rounded-lg flex flex-col justify-start items-center p-8 gap-6'>
+                <Image
+                    src='/img/amautaLogo.png'
+                    width={450}
+                    height={100}
+                    alt='arrow'
+                    className="h-[100px]"
+                />
+                <div className='w-full flex flex-col justify-center items-center gap-6 h-full'>
+                    <p className='text-xl font-normal text-black text-center'>
+                        Ingresá tu email y contraseña para iniciar sesión.
+                    </p>
                     <TextField
                         required
                         id="outlined-required"
@@ -80,13 +88,10 @@ const Login = () => {
                         fullWidth
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <button className='text-xl w-[250px] py-2 bg-blue-500 rounded-lg text-white' onClick={handleLogin}>
+                        Iniciar sesión
+                    </button>
                 </div>
-                <button className='text-base font-normal text-green-600 text-start w-full' onClick={() => router.push("/register")}>
-                    Crear cuenta nueva.
-                </button>
-                <button className='text-xl w-[250px] py-2 bg-blue-500 rounded-lg text-white' onClick={handleLogin}>
-                    Iniciar sesión
-                </button>
             </div>
         </LayoutSession>
     )

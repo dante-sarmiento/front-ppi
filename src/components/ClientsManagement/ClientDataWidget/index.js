@@ -5,11 +5,10 @@ import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const ClientDataWidget = ({ userData = {} }) => {
-    const [isEdit, setIsEdit] = useState(false)
-    const [isUpdatePass, setIsUpdPass] = useState(false)
-    const [showPassword, setShowPassword] = useState(false)
-    const [equalPasswords, setEqualPassword] = useState(false)
-
+    // const [isEdit, setIsEdit] = useState(false)
+    // const [isUpdatePass, setIsUpdPass] = useState(false)
+    // const [showPassword, setShowPassword] = useState(false)
+    // const [equalPasswords, setEqualPassword] = useState(false)
     return (
         <div className='w-full flex flex-col gap-4 rounded-md h-auto p-6 bg-gray-200'>
             <div className='w-full flex justify-between items-center'>
@@ -24,7 +23,7 @@ const ClientDataWidget = ({ userData = {} }) => {
                             Nombre de cliente
                         </p>
                         <p className='text-2xl text-black fotn-semibold'>
-                            {userData.firstName} {userData.lastName}
+                            {userData?.firstName} {userData?.lastName}
                         </p>
                     </div>
                     <div className='w-full flex flex-col justify-start items-start border-b border-gray-900'>
@@ -32,14 +31,32 @@ const ClientDataWidget = ({ userData = {} }) => {
                             Email
                         </p>
                         <p className='text-2xl text-black fotn-semibold'>
-                            {userData.email}
+                            {userData?.email}
                         </p>
                     </div>
                 </div>
-                <button onClick={() => setIsUpdPass(true)}>
+                <div className='w-full flex justify-start items-start gap-4'>
+                    <div className='w-full flex flex-col justify-start items-start border-b border-gray-900'>
+                        <p className='text-sm text-black'>
+                            Fecha de creación
+                        </p>
+                        <p className='text-2xl text-black fotn-semibold'>
+                            {formatTimestamp(userData?.createdAt)}
+                        </p>
+                    </div>
+                    <div className='w-full flex flex-col justify-start items-start border-b border-gray-900'>
+                        <p className='text-sm text-black'>
+                            ref
+                        </p>
+                        <p className='text-2xl text-black fotn-semibold'>
+                            {userData?._id.slice(-5)}
+                        </p>
+                    </div>
+                </div>
+                {/* <button onClick={() => setIsUpdPass(true)}>
                     Cambiar contraseña
-                </button>
-                {isUpdatePass && (
+                </button> */}
+                {/* {isUpdatePass && (
                     <>
                         <div className='w-full flex justify-start items-start gap-4'>
                             <TextField
@@ -97,7 +114,7 @@ const ClientDataWidget = ({ userData = {} }) => {
                         </div>
                     </>
 
-                )}
+                )} */}
             </div>
         </div>
     )
