@@ -17,7 +17,7 @@ const Perfil = () => {
   const [loader, setLoader] = useState(false)
   const [dataUser, setDataUser] = useState({})
   const context = useContext(Context)
-  if (!context) console.log("Error de carag de contexto")
+  if (!context) console.log("Error de carag de contexto ")
   const { user } = context
 
   const getUserIdFromUrl = () => {
