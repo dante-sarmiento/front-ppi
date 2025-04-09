@@ -43,7 +43,6 @@ export const login = async ({ email, password }) => {
 };
 
 export const register = async ({ newUserData }) => {
-    console.log("dataSend", newUserData);
     const response = await axios.post(`${baseUrl}/register`, {
         newUserData
     })
