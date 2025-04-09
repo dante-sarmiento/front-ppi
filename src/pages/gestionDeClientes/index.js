@@ -73,9 +73,9 @@ const GestionDeClientes = () => {
     setLoader(false);
   };
 
-  useEffect(() => {
-    getDataUsers();
-  }, []);
+useEffect(() => {
+  getDataUsers();
+}, []);
 
   const closeModal = () => {
     setModalInfo({

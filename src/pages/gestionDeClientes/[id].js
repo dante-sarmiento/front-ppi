@@ -25,6 +25,7 @@ const Client = () => {
     const [dataInvestments, setDataInvestments] = useState([])
     const [userData, setUserData] = useState(null)
     const [accountIdDelete, setAccountIdDelete] = useState(null)
+    const [countdown, setCountdown] = useState(60);
     const [modalInfo, setModalInfo] = useState({
         type: 0,
         message: "",
@@ -65,8 +66,20 @@ const Client = () => {
     }
 
     useEffect(() => {
-        getDataInvestments()
-    }, [])
+        getDataInvestments();
+
+        const timer = setInterval(() => {
+            setCountdown(prev => {
+                if (prev === 0) {
+                    getDataInvestments()
+                    return 60
+                }
+                return prev - 1
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
 
     const getUserIdFromUrl = () => {
@@ -225,7 +238,8 @@ const Client = () => {
                             setAccountNewUser={setAccountNewUser}
                             setEditingAccount={setEditingAccount}
                             editingAccount={editingAccount}
-                            setAccountIdDelete={setAccountIdDelete} />
+                            setAccountIdDelete={setAccountIdDelete}
+                            countdown={countdown} />
                         <AddInstrument
                             accountNewUser={accountNewUser}
                             setAccountNewUser={setAccountNewUser}

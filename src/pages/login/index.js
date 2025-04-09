@@ -10,12 +10,19 @@ import Loader from '@/components/Loader'
 import { login, loginApiPPI } from '@/connections/user';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Modal from '@/components/Modal';
+import ModalInfo from '@/components/ModalInfo';
 
 const Login = () => {
     const [loader, setLoader] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false);
+    const [modalInfo, setModalInfo] = useState({
+        type: 0,
+        message: "",
+        active: false
+    })
     const context = useContext(Context)
     if (!context) console.log("Error de contexto")
     const { setUser, setTokenSession } = context
@@ -46,6 +53,11 @@ const Login = () => {
                 }
             } catch (error) {
                 console.log("Login error", error)
+                setModalInfo({
+                    type: 0,
+                    message: error?.response?.data?.msg || "Ha ocurrido un error al inciar sesión",
+                    active: true
+                })
                 setLoader(false)
             }
         } else {
@@ -54,10 +66,26 @@ const Login = () => {
         }
     }
 
+    const closeModal = () => {
+        setModalInfo({
+            type: 0,
+            message: "",
+            active: false
+        })
+    }
+
     return (
         <LayoutSession>
             {loader && (
                 <Loader />
+            )}
+            {modalInfo.active && (
+                <Modal>
+                    <ModalInfo
+                        type={modalInfo.type}
+                        message={modalInfo.message}
+                        closeModal={closeModal} />
+                </Modal>
             )}
             <div className='w-[30%] h-[500px] bg-white rounded-lg flex flex-col justify-start items-center p-8 gap-6'>
                 <Image

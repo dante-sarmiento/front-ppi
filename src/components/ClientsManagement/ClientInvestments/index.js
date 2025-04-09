@@ -3,7 +3,7 @@ import GeneralSelect from '@/components/GeneralSelect'
 import { INSTRUMENTS } from '@/constants/instruments'
 import InvestmentsTable from '../InvestmentsTable'
 
-const ClientInvestments = ({ data, setEditingAccount, editingAccount, setAccountIdDelete}) => {
+const ClientInvestments = ({ data, setEditingAccount, editingAccount, setAccountIdDelete, countdown}) => {
     const [instrumentSelected, setInstrumentselected] = useState(INSTRUMENTS[0])
 
     return (
@@ -12,6 +12,14 @@ const ClientInvestments = ({ data, setEditingAccount, editingAccount, setAccount
                 <p className='text-2xl font-semibold'>
                     Instrumentos cotizados en DOLARES
                 </p>
+                <div className='w-auto flex justify-end items-center gap-4'>
+                    <p>
+                       Actualizacion en: 
+                       <span className='font-bold px-1'>
+                         {countdown}
+                        </span>
+                        segundos
+                    </p>
                 <div className='flex gap-2 items-center justify-end w-[260px]'>
                     <p className='text-xl font-semibold'>
                         Tipo:
@@ -20,6 +28,7 @@ const ClientInvestments = ({ data, setEditingAccount, editingAccount, setAccount
                         data={INSTRUMENTS}
                         instrumentSelected={instrumentSelected}
                         setInstrumentSelected={(value) => setInstrumentselected(value)} />
+                </div>
                 </div>
             </div>
             <InvestmentsTable

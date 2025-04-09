@@ -81,7 +81,7 @@ const InvestmentsTable = ({ data, setEditingAccount, editingAccount, setAccountI
                                 />
                                 <input
                                     type='text'
-                                    className={`${d.variation.slice(0, 1) == "-" ? "text-red-500" : d.variation == "0" ? "text-black" : "text-green-500"} bg-transparent w-[9%] text-center  outline-none text-[12px]`}
+                                    className={`${d.variation.slice(0, 1) == "-" ? "text-red-500" : d.variation == "0" ? "text-black" : "text-green-500"} bg-transparent w-[9%] text-center  outline-none text-[12px] font-bold`}
                                     value={d.variation}
                                     disabled={true}
                                 />
