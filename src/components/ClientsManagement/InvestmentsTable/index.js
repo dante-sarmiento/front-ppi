@@ -9,11 +9,17 @@ const InvestmentsTable = ({ data, setEditingAccount, editingAccount, setAccountI
     const { user } = context
 
     const calculatePrice = (price, nominals) => {
-         return Number(nominals) * Number(price);
+         return ((Number(nominals) * Number(price)) / 100).toFixed(2);
     }
 
-    console.log("data", data);
-    console.log("editing", editingAccount);
+    const initialValue = (averagePurchasePrice, nominals) => {
+         return ((Number(nominals) * Number(averagePurchasePrice)) / 100).toFixed(2);
+    }
+
+    const calculatePerformance = (currentValue, initialValue) => {
+        return ((Number(currentValue) * Number(initialValue)) / initialValue).toFixed(1);
+    }
+
     return (
         <div className='w-full flex flex-col justify-start items-center rounded-md overflow-hidden'>
             <div className='w-full flex jutstify-start items-center bg-[#692D4F] h-[60px] px-2'>
@@ -76,31 +82,32 @@ const InvestmentsTable = ({ data, setEditingAccount, editingAccount, setAccountI
                                 <input
                                     type='text'
                                     className='bg-transparent w-[9%] text-center stylesData outline-none'
-                                    value={calculatePrice(d.price, d.nominals)}
+                                    value={d.price}
                                     disabled={true}
                                 />
                                 <input
                                     type='text'
                                     className={`${d.variation.slice(0, 1) == "-" ? "text-red-500" : d.variation == "0" ? "text-black" : "text-green-500"} bg-transparent w-[9%] text-center  outline-none text-[12px] font-bold`}
-                                    value={d.variation}
+                                    value={d.variation + "%"}
                                     disabled={true}
                                 />
                                 <input
                                     type='text'
                                     className='bg-transparent w-[9%] text-center stylesData outline-none'
-                                    value={d.performance}
+                                    value={calculatePerformance(d.currentValue, d.initialValue) + "%"}
+                                    disabled={editingAccount?._id != d._id}
+                                />
+                                <input
+                                    type='text'
+                                    
+                                    className='bg-transparent w-[9%] text-center stylesData outline-none'
+                                    value={calculatePrice(d.price, d.nominals)}
                                     disabled={editingAccount?._id != d._id}
                                 />
                                 <input
                                     type='text'
                                     className='bg-transparent w-[9%] text-center stylesData outline-none'
-                                    value={d.currentValue}
-                                    disabled={editingAccount?._id != d._id}
-                                />
-                                <input
-                                    type='text'
-                                    className='bg-transparent w-[9%] text-center stylesData outline-none'
-                                    value={d.initialValue}
+                                    value={initialValue(d.averagePurchasePrice, d.initialValue)}
                                     disabled={editingAccount?._id != d._id}
                                 />
                                 <input
