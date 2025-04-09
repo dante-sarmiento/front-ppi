@@ -25,6 +25,7 @@ export const ContextProvider = ({ children }) => {
       try {
         const userData = await getUser(userId, storedToken);
         setUser(userData?.user);
+        console.log("user data context", userData);
       } catch (error) {
         console.error("Error obteniendo usuario:", error);
         setTokenSession(null);

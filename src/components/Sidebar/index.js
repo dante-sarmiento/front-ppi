@@ -30,6 +30,8 @@ const Sidebar = () => {
             setSelectedSection("fci-exterior")
         } else if (route == "/gestionDeClientes") {
             setSelectedSection("Gestion de clientes")
+        }else if (route == "/gestionDeAdministradores") {
+            setSelectedSection("Gestion de administradores")
         }
     }, [route])
 
@@ -55,7 +57,15 @@ const Sidebar = () => {
                                 <p>Gestión de clientes</p>
                             </div>
                         </div>
-                        {SECTIONS.map((section, index) => {
+                        <div className={`${selectedSection.toLocaleLowerCase() == "gestionDeAdministradores" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>
+                            <div
+                                className='w-full p-2 flex justify-between items-center h-10 cursor-pointer hover:bg-gray-800 rounded-md'
+                                onClick={() => router.push('/gestionDeAdministradores')}
+                            >
+                                <p>Gestión de administradores</p>
+                            </div>
+                        </div>
+                        {/* {SECTIONS.map((section, index) => {
                             return (
                                 <div key={index} className={`${selectedSection.toLocaleLowerCase() == section.label.toLocaleLowerCase() ? "bg-gray-800" : ""} w-full flex  items-end rounded-md`}>
                                     <div
@@ -66,7 +76,7 @@ const Sidebar = () => {
                                     </div>
                                 </div>
                             );
-                        })}
+                        })} */}
                     </> :
                     <>
                     <div className={`${selectedSection.toLocaleLowerCase() == "dashboard" ? "bg-gray-800" : ""} w-full flex lex-col items-endf rounded-md`}>

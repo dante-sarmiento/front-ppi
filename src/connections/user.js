@@ -51,11 +51,11 @@ export const register = async ({ newUserData }) => {
 };
 
 export const loginApiPPI = async () => {
-    const response = await axios.post(`${baseUrl}/Account/loginApi`)
+    const response = await axios.get(`${baseUrl}/Account/loginApi`)
     return response;
 };
 
-export const deleteUser = async (userId ) => {
+export const deleteUser = async (userId) => {
     console.log("userID", userId);
     const headers = getHeaders();
 
@@ -64,5 +64,14 @@ export const deleteUser = async (userId ) => {
         headers,
     });
 
+    return response;
+};
+
+export const updateUser = async ( newUserData ) => {
+    console.log("dataSend", newUserData);
+    const headers = getHeaders();
+    const response = await axios.put(`${baseUrl}/user`, newUserData, {
+        headers
+    });
     return response;
 };

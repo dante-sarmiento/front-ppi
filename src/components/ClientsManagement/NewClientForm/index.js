@@ -9,7 +9,8 @@ import ModalInfo from '@/components/ModalInfo'
 const NewClientForm = ({
   setEmail,
   setPassword,
-  setAccountNumber
+  setAccountNumber,
+  role = "CLIENTE"
 }) => {
   const [missingField, setMissingField] = useState("")
   const [loader, setLoader] = useState(false)
@@ -22,7 +23,7 @@ const NewClientForm = ({
   const [newUserData, setNewUserData] = useState({
     email: "",
     password: "",
-    role: "CLIENTE",
+    role: role,
     firstName: "",
     lastName: "",
     broker: "",
@@ -41,7 +42,7 @@ const NewClientForm = ({
         setNewUserData({
           email: "",
           password: "",
-          role: "CLIENTE",
+          role: role,
           firstName: "",
           lastName: "",
           broker: "",

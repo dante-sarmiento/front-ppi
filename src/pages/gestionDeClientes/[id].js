@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ButtonGroup from '@/components/ButtonsGroup'
 import Layout from '@/layout'
 import ClientDataWidget from '@/components/ClientsManagement/ClientDataWidget'
@@ -9,6 +9,7 @@ import Loader from '@/components/Loader'
 import Modal from '@/components/Modal'
 import ModalInfo from '@/components/ModalInfo'
 import { getUser } from '@/connections/user'
+import { Context } from '@/context/ContextProvider';
 
 const buttons = [
     { label: "Inversiones", value: "inversiones" },
@@ -16,6 +17,9 @@ const buttons = [
 ]
 
 const Client = () => {
+    const context = useContext(Context)
+    if (!context) console.log("Error de contexto")
+    const { user } = context
     const [selectedButton, setSelectedButton] = useState(buttons[0])
     const [loader, setLoader] = useState(false)
     const [dataInvestments, setDataInvestments] = useState([])
@@ -210,7 +214,8 @@ const Client = () => {
                     setSelectedButton={setSelectedButton} />
                 {selectedButton.value == "clientData" && (
                     <ClientDataWidget
-                        userData={userData} />
+                        userData={userData}
+                        isAdmin={user?.role == "ADMINISTRADOR" || true} />
                 )}
                 {selectedButton.value == "inversiones" && (
                     <>
