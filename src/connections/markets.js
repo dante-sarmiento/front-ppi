@@ -1,6 +1,6 @@
 import { getTokenUser } from '@/helpers/getTokenUser';
 import _Fetch from '../services/api'
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000/api";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000";
 import axios from "axios";
 
 
