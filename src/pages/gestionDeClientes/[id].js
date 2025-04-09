@@ -96,6 +96,7 @@ const Client = () => {
         setLoader(true)
         try {
             const userId = getUserIdFromUrl()
+            console.log("userId", userId);
             const dataUser = await getUser(userId)
             setUserData(dataUser?.user)
         } catch (error) {
@@ -113,6 +114,7 @@ const Client = () => {
             getUserById()
         }
     }, [selectedButton])
+    
 
 
     const handleInstrument = async () => {

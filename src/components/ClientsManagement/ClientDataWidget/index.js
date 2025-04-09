@@ -30,7 +30,6 @@ const ClientDataWidget = ({ userData = {}, newDataUser, setNewDataUser, handleUp
       }
     }, [newDataUser])
     
-console.log("user", userData);
     return (
         <div className='w-full flex flex-col gap-4 rounded-md h-auto p-6 bg-gray-200'>
             <div className='w-full flex justify-between items-center'>
@@ -71,11 +70,11 @@ console.log("user", userData);
                             ref
                         </p>
                         <p className='text-2xl text-black fotn-semibold'>
-                            {userData?._id.slice(-5)}
+                            {userData?._id?.slice(-5)}
                         </p>
                     </div>
                 </div>
-                {!isAdmin && (
+                {userData?.role == "CLIENTE" && (
                     <>
                         <button onClick={() => setIsUpdPass(true)}>
                             Cambiar contraseña

@@ -1,6 +1,6 @@
 import ClientDataWidget from '@/components/ClientsManagement/ClientDataWidget'
 import Layout from '@/layout'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Loader from '@/components/Loader';
 import Modal from '@/components/Modal';
 import ModalInfo from '@/components/ModalInfo';
@@ -27,9 +27,16 @@ const Perfil = () => {
 
   const getDataUser = async () => {
     const userId = getUserIdFromUrl();
+    const userIdStorage = localStorage.getItem("user");
+    let userData = {}
     try {
-      const userData = await getUser(userId);
-      setDataUser(userData)
+      if (userId != "perfil") {
+        userData = await getUser(userId);
+        setDataUser(userData)
+      } else {
+        userData = await getUser(userIdStorage);
+        setDataUser(userData.user)
+      }
     } catch (error) {
       setModalInfo({
         type: 0,
@@ -38,6 +45,11 @@ const Perfil = () => {
       })
     }
   }
+
+  useEffect(() => {
+    getDataUser()
+  }, [])
+
 
   const handleUpdateUser = async () => {
     setLoader(true)
@@ -70,7 +82,6 @@ const Perfil = () => {
     })
   }
 
-  console.log("user", user);
   return (
     <Layout>
       {loader && (
